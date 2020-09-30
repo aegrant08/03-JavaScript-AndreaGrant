@@ -1,19 +1,28 @@
-// Arrays to generate password
-let lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-let uppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-let number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-let symbol = ["!", "@", "#", "$", "%", "^", "*", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", ",", ".", "?", "/", ">", "<", "|"];
+// Prompt and confirms for password length and characters
 
-var length = Number(prompt("How many characters would you like your password to be?"));
-while (isNaN(length)) || length < 8 || length > 128) length = Number(prompt("Length must be 8 - 128 characters!"));
+var passwordLength = prompt("How many characters would you like your password to be?");
 
-let getRndLower = lowercase[Math.floor(Math.random() * lowercase.length)];
+while (passwordLength < 8 || passwordLength > 128) {
+  passwordLength = prompt("Your password must be between 8 - 128 characters! How many characters would you like your password to be?");
+}
 
-let getRndUpper = uppercase[Math.floor(Math.random() * uppercase.length)];
+var lowercase = confirm("Would you like to use lowercase letters in your password?");
+var uppercase = confirm("Would you like to use uppercase letters in your password?");
+var numbers = confirm("Would you like to use numbers in your password?");
+var symbols = confirm("Would you like to use symbols in your password?");
 
-let getRndNumber = number[Math.floor(Math.random() * number.length)];
+// Alert if no character set chosen and resends confirms for each character set
 
-let getRndSymbol = symbol[Math.floor(Math.random() * symbol.length)];
+while (!lowercase && !uppercase && !numbers && !symbols) {
+  alert("You must select at least one character set!");
+  lowercase = confirm("Would you like to use lowercase letters in your password?");
+  uppercase = confirm("Would you like to use uppercase letters in your password?");
+  numbers = confirm("Would you like to use numbers in your password?");
+  symbols = confirm("Would you like to use symbols in your password?");
+};
+
+var resultEl = document.getElementById("password");
+
 
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
