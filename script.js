@@ -2,51 +2,51 @@
 var lowercase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var uppercase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-var symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '<', '>', '.', '?', '/', '|'];
+var symbols = ['!@#$%^&*()-_=+<>.?/|'];
 
-// Prompt and confirms for password length and characters
+// Prompt for password length
+var pwLength = prompt('How many characters would you like your password to be?');
 
-var passwordLength = prompt('How many characters would you like your password to be?');
-
-while (passwordLength < 8 || passwordLength > 128) {
-  passwordLength = prompt('Your password must be between 8 - 128 characters! How many characters would you like your password to be?');
+// Alert if password too short or too long and prompt given again
+if (pwLength < 8 || pwLength > 128) {
+  prompt('You must have between 8 - 128 characters in your password. How many characters would you like in your password?');
 }
 
-var conLowercase = confirm('Would you like to use lowercase letters in your password?');
-var conuUppercase = confirm('Would you like to use uppercase letters in your password?');
-var conNumbers = confirm('Would you like to use numbers in your password?');
-var conSymbols = confirm('Would you like to use symbols in your password?');
+// Selection of character sets to use in password
+var cfLowercase = confirm('Would you like to use lowercase letters in your password?');
+var cfUppercase = confirm('Would you like to use uppercase letters in your password?');
+var cfNumbers = confirm('Would you like to use numbers in your password?');
+var cfSymbols = confirm('Would you like to use symbols in your password?');
 
-// Alert if no character set chosen and resends confirms for each character set
-
-while (!lowercase && !uppercase && !numbers && !symbols) {
-  alert('You must select at least one character set!');
-  lowercase = confirm('Would you like to use lowercase letters in your password?');
-  uppercase = confirm('Would you like to use uppercase letters in your password?');
-  numbers = confirm('Would you like to use numbers in your password?');
-  symbols = confirm('Would you like to use symbols in your password?');
+// Alert if no character set chosen and selections provided again
+if (cfLowercase != true && cfUppercase != true && cfNumbers != true && cfSymbols != true) {
+  alert('You must choose one character set to use!');
+  cfLowercase = confirm('Would you like to use lowercase letters in your password?');
+  cfUppercase = confirm('Would you like to use uppercase letters in your password?');
+  cfNumbers = confirm('Would you like to use numbers in your password?');
+  cfSymbols = confirm('Would you like to use symbols in your password?');
 };
 
 // DOM elements
 
 var rndFunc = {
-  lower = getRndLower,
-  upper = getRndUpper,
-  number = getRndNumbers,
-  symbol = getRndSymbol
+  lower: getRndLower,
+  upper: getRndUpper,
+  number: getRndNumbers,
+  symbol: getRndSymbol
 }
-
-function generatePassword(lower, upper, number, symbol, passwordLength) {
+// Function to generate random password
+function generatePassword(lower, upper, number, symbol, pwLength) {
   var genPassword = '';
-  var typesCount = lower + upper + number + symbol;
-  var typesArray = [{ lower }, { upper }, { number }, { symbol }].filter(item => Object.values(item)[0]);
+  var count = lower + upper + number + symbol;
+  var array = [{ lower }, { upper }, { number }, { symbol }].filter(item => Object.values(item)[0]);
 
-  // loop
+  // loop to generate and return a random password
 
-  for (var i = 0; i < length; i += typesCount) {
-    typesArray.forEach(type => {
-      var anotherFunc = Object.keys(type)[0];
-      genPassword += rndFunc[anotherFunc]();
+  for (var i = 0; i < length; i += count) {
+    array.forEach(type => {
+      var funcName = Object.keys(type)[0];
+      genPassword += rndFunc[funcName]();
     });
 
     var passwordResult = genPassword.slice(0, length);
@@ -69,15 +69,15 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener('click', writePassword); {
-  passwordText.value = writePassword();
+  password = writePassword();
 };
 
-// functions to get random characters to generate random password
+// functions to get random characters for generate random password function
 
-var getRndLower = lowercase[Math.floor(Math.random() * lowercase.lenght)];
-var getRndUpper = uppercase[Math.floor(Math.random() * uppercase.lenght)];
-var getRndNumbers = numbers[Math.floor(Math.random() * numbers.lenght)];
-var getRndSymbol = symbols[Math.floor(Math.random() * symbols.lenght)];
+var getRndLower = lowercase[Math.floor(Math.random() * lowercase.length)];
+var getRndUpper = uppercase[Math.floor(Math.random() * uppercase.length)];
+var getRndNumbers = numbers[Math.floor(Math.random() * numbers.length)];
+var getRndSymbol = symbols[Math.floor(Math.random() * symbols.length)];
 
 
 
