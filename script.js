@@ -52,6 +52,7 @@ function generatePassword(lower, upper, number, symbol, pwLength) {
     var passwordResult = genPassword.slice(0, length);
 
     return passwordResult;
+
   }
 }
 
@@ -69,8 +70,8 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener('click', writePassword); {
-  password = writePassword();
-};
+  passwordText.Value = writePassword();
+}
 
 // functions to get random characters for generate random password function
 
